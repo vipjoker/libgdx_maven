@@ -32,17 +32,32 @@ public class Applicatoin implements ApplicationListener {
 
     }
 float angle = 1f;
+    float transalatex = 1f;
+    float speed = 1f;
     public void render() {
         Gdx.gl20.glClearColor(0,0,0,1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        float apply = Interpolation.elasticIn.apply(angle);
+
         triangle.rotate(0.1f);
         circle.draw(batch,.2f);
         star.draw(batch);
         triangle.draw(batch,.2f);
         square.draw(batch,.2f);
-        square.translateX(apply);
+        if(transalatex > Gdx.graphics.getWidth()){
+            transalatex = Gdx.graphics.getWidth();
+            speed *= -1;
+        }
+        if(transalatex  < 0 ){
+            transalatex  = 0;
+            speed *= -1;
+        }
+
+        transalatex+=speed;
+
+        float apply = Interpolation.bounce.apply(transalatex/Gdx.graphics.getWidth());
+
+        square.setX(apply *Gdx.graphics.getWidth());
         batch.end();
 
     }

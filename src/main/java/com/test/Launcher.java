@@ -12,7 +12,7 @@ public class Launcher {
         LwjglApplicationConfiguration configuration = new LwjglApplicationConfiguration();
         configuration.width = 480;
         configuration.height = 800;
-        LwjglApplication lwjglApplication = new LwjglApplication(new Applicatoin(),configuration);
-
+        configuration.title = "Mobile game";
+        new LwjglApplication(new Applicatoin(),configuration);
     }
 }

@@ -29,7 +29,7 @@ public class Applicatoin implements ApplicationListener {
     }
 
     public void resize(int i, int i1) {
-
+//        Gdx.graphics.setWindowedMode(i,i1);
     }
 float angle = 1f;
     float transalatex = 1f;
@@ -67,6 +67,7 @@ float angle = 1f;
     }
 
     public void resume() {
+
 
     }
 

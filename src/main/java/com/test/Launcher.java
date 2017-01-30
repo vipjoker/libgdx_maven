@@ -13,6 +13,6 @@ public class Launcher {
         configuration.width = 480;
         configuration.height = 800;
         configuration.title = "Mobile game";
-        new LwjglApplication(new Applicatoin(),configuration);
+        new LwjglApplication(new App3dSample(),configuration);
     }
 }

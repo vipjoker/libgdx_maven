@@ -2,14 +2,11 @@ package com.test;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g3d.Material;
-import com.badlogic.gdx.graphics.g3d.Model;
-import com.badlogic.gdx.graphics.g3d.ModelBatch;
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
-import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Interpolation;
 
@@ -20,8 +17,7 @@ public class Applicatoin implements ApplicationListener {
 
     ModelBuilder modelBuilder;
     PerspectiveCamera camera;
-        ModelInstance instance;
-        ModelBatch modelBatch;
+
     Sprite circle,triangle,square,star;
     SpriteBatch batch;
     public void create() {
@@ -34,9 +30,6 @@ public class Applicatoin implements ApplicationListener {
         camera.update();
 
 
-        Model box = modelBuilder.createBox(10, 10, 10, new Material(ColorAttribute.createDiffuse(Color.GREEN)), VertexAttributes.Usage.Normal | VertexAttributes.Usage.Position);
-        instance = new ModelInstance(box);
-        modelBatch = new ModelBatch();
         batch = new SpriteBatch();
 
         circle = new Sprite(new Texture("circle.png"));
@@ -53,15 +46,23 @@ public class Applicatoin implements ApplicationListener {
 //        Gdx.graphics.setWindowedMode(i,i1);
     }
 float angle = 1f;
+    int red = 0;
+    boolean shouldAdd;
     float transalatex = 1f;
     float speed = 1f;
     public void render() {
-        Gdx.gl20.glClearColor(0,0,0,1);
+        Gdx.gl20.glClearColor(0f,0.7f,.7f,1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
 
         triangle.rotate(0.1f);
         circle.draw(batch,.2f);
+
+        if(red > 253)shouldAdd = false;
+        if(red < 1)shouldAdd = true;
+        red+= shouldAdd? 1 : -1;
+
+        star.setColor(red%254/255f,109f/255f,208f/255f,1);
         star.draw(batch);
         triangle.draw(batch,.2f);
         square.draw(batch,.2f);

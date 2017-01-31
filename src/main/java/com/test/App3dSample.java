@@ -37,7 +37,10 @@ public class App3dSample implements ApplicationListener {
 
         instanceBlender = new ModelInstance(loader.loadModel(Gdx.files.internal("untitled.obj")));
         Model capsule  = builder.createCapsule(2,6,10,new Material(ColorAttribute.createDiffuse(Color.GREEN)), VertexAttributes.Usage.Position| VertexAttributes.Usage.Normal);
+
         instanceCapsule =  new ModelInstance(capsule);
+        Material material = instanceCapsule.materials.first();
+
 
         batch = new ModelBatch();
         initEnvironment();

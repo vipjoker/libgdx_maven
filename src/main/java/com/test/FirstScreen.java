@@ -30,8 +30,11 @@ public class FirstScreen implements ApplicationListener {
         style.up = skin.getDrawable("btn_unpress");
         btnPlay = new Button(style);
         mStage.setDebug(true);
-        mStage.row();
-        mStage.add(btnPlay).center();
+
+        mStage.add().expandX();
+        mStage.add(btnPlay);
+        mStage.add().expandX();
+
         mStage.row().expandY();
     }
 

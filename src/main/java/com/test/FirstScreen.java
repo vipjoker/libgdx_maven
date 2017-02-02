@@ -2,13 +2,20 @@ package com.test;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 /**
  * Created by oleh on 31.01.17.
@@ -16,26 +23,49 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 public class FirstScreen implements ApplicationListener {
 
     Button btnPlay;
-    Table mStage;
+    Stage stage ;
+    Table table;
     SpriteBatch batch;
 
     public void create() {
+        stage = new Stage();
         batch = new SpriteBatch();
-        mStage = new Table();
+        table = new Table();
         Skin skin = new Skin();
+        Gdx.input.setInputProcessor(stage);
         skin.add("btn_press",new Texture("screen/button_pressed.png"));
         skin.add("btn_unpress",new Texture("screen/button_unpressed.png"));
         Button.ButtonStyle style = new Button.ButtonStyle();
-        style.down = skin.getDrawable("btn_press");
-        style.up = skin.getDrawable("btn_unpress");
+        style.down = skin.getDrawable("btn_unpress");
+        style.up = skin.getDrawable("btn_press");
         btnPlay = new Button(style);
-        mStage.setDebug(true);
+        btnPlay.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("clicked");
+            }
+        });
 
-        mStage.add().expandX();
-        mStage.add(btnPlay);
-        mStage.add().expandX();
+        table.setDebug(true);
 
-        mStage.row().expandY();
+
+
+        stage.addActor(table);
+        stage.addActor(btnPlay);
+        stage.addActor(getTextButton("One"));
+        stage.addActor(getTextButton("Two"));
+        stage.addActor(getTextButton("Three"));
+        stage.addActor(getTextButton("Four"));
+        stage.addActor(getTextButton("Five"));
+    }
+
+    private Button getTextButton(String btnText){
+        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
+        buttonStyle.font = new BitmapFont();
+        buttonStyle.fontColor = Color.RED;
+        NinePatch patch = new NinePatch(new Texture("button.png"));
+        buttonStyle.up = new NinePatchDrawable(patch);
+        return new TextButton(btnText,buttonStyle);
     }
 
     public void resize(int width, int height) {
@@ -45,9 +75,9 @@ public class FirstScreen implements ApplicationListener {
     public void render() {
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.gl20.glClearColor(14f/255f,95f/255f,118f/255f,1);
-        batch.begin();
-        mStage.draw(batch,1);
-        batch.end();
+
+        stage.draw();
+
     }
 
     public void pause() {

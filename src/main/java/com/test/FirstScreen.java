@@ -47,16 +47,20 @@ public class FirstScreen implements ApplicationListener {
         });
 
         table.setDebug(true);
-
+        table.setFillParent(true);
 
 
         stage.addActor(table);
         stage.addActor(btnPlay);
-        stage.addActor(getTextButton("One"));
-        stage.addActor(getTextButton("Two"));
-        stage.addActor(getTextButton("Three"));
-        stage.addActor(getTextButton("Four"));
-        stage.addActor(getTextButton("Five"));
+
+        table.add(getTextButton("One")).center().colspan(2);
+
+        table.row().expandY();
+        table.add(getTextButton("Two"));
+        table.add(getTextButton("Three"));
+        table.row();
+        table.add(getTextButton("Four"));
+        table.add(getTextButton("Five"));
     }
 
     private Button getTextButton(String btnText){

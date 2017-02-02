@@ -61,6 +61,7 @@ public class FirstScreen implements ApplicationListener {
         table.row();
         table.add(getTextButton("Four"));
         table.add(getTextButton("Five"));
+//        https://github.com/libgdx/libgdx/wiki/Table
     }
 
     private Button getTextButton(String btnText){
